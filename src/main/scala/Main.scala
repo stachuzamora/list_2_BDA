@@ -4,9 +4,13 @@ import scala.io.Source
 object Main {
 
   def main(args: Array[String]): Unit = {
-    val outputMapReduce = Source.fromFile("/home/stanislaw/PWR/Big_Data_Anal/2 semester/BDA_lab/list_2/src/main/scala/graph").getLines
+
+    val source = Source.fromFile("/home/stanislaw/PWR/Big_Data_Anal/2 semester/BDA_lab/list_2/src/main/scala/graph")
+    val outputMapReduce = source.getLines
       .toList.map(mapGraphDegrees)
       .reduce(reduceGraphDegrees)
+
+    source.close()
 
     outputMapReduce.foreach(println)
   }
