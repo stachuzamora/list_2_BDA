@@ -1,11 +1,13 @@
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
-object Main {
+object Ex1 {
 
   def main(args: Array[String]): Unit = {
 
-    val source = Source.fromFile("/home/stanislaw/PWR/Big_Data_Anal/2 semester/BDA_lab/list_2/src/main/scala/graph")
+    // Task 1
+    println("Task 1")
+    var source = Source.fromFile("/home/stanislaw/PWR/Big_Data_Anal/2 semester/BDA_lab/list_2/src/main/scala/graph")
     val outputMapReduce = source.getLines
       .toList.map(mapGraphDegrees)
       .reduce(reduceGraphDegrees)
@@ -13,8 +15,22 @@ object Main {
     source.close()
 
     outputMapReduce.foreach(println)
+
+
+
+
+    //Task 3
+    println("Task 3")
   }
 
+//  private def removeStopWords(wordsList: ListBuffer[String]): ListBuffer[String] ={
+//    val source = Source.fromFile(STOP_WORDS_FILENAME)
+//    val stopWordsList = try source.getLines.toList finally source.close
+//    wordsList.filter(!stopWordsList.contains(_))
+//  }
+
+
+  // Task 1
   def mapGraphDegrees(line: String): collection.mutable.Map[String, GraphDegrees] = {
     val nodes = line.split(" ")
     collection.mutable.Map(
