@@ -12,13 +12,13 @@ object Ex3 {
     val k = 3
     val kShingles = ListBuffer[Set[String]]()
 
-//    books.foreach(book => {
-//      kShingles += generateKShingles(loadBook(book), k)
-//    })
+    //    books.foreach(book => {
+    //      kShingles += generateKShingles(loadBook(book), k)
+    //    })
 
-//    val shingleSets = kShingles.toList
+    //    val shingleSets = kShingles.toList
 
-//    shingleSets.foreach(println)
+    //    shingleSets.foreach(println)
 
     println(generateHashingFunctions(10, 10))
 
@@ -31,20 +31,33 @@ object Ex3 {
   def generateSignatures(shinglesSets: List[Set[String]], hashingFunctions: List[List[Int]]) = {
     val characteristicMatrix = generateCharacteristicMatrix(shinglesSets)
     println(characteristicMatrix.map(_.mkString(", ")).mkString("\n"))
-//    val signatures = Array.ofDim[Int](hashingFunctions.size, shinglesSets.size)
-//    val shinglesList = shinglesSets.map(_.toList)
-    val signatures = ListBuffer[List[(Int, Int)]]()
+    //    val signatures = Array.ofDim[Int](hashingFunctions.size, shinglesSets.size)
+    //    val shinglesList = shinglesSets.map(_.toList)
+    val signaturesForHashes = ListBuffer[List[Int]]()
 
-    hashingFunctions.foreach(func => {
-      println(f"hash func: $func")
-      characteristicMatrix.foreach(column => {
-        println(f"column: ${column.mkString(", ")}")
+//    hashingFunctions.foreach(func => {
+//      println(f"hash func: $func")
+//      val signatures = ListBuffer[Int]()
+//      characteristicMatrix.foreach(column => {
+//        println(f"column: ${column.mkString(", ")}")
+//        signatures += func.zip(column).filter(_._2 == 1).map(_._1).min
+//        println(f"filtered values ${func.zip(column).filter(_._2 == 1).map(_._1).min}")
+//      })
+//      signaturesForHashes += signatures.toList
+//    })
+//    signaturesForHashes
+
+    characteristicMatrix.foreach(column => {
+      println(f"column: ${column.mkString(", ")}")
+      val signatures = ListBuffer[Int]()
+      hashingFunctions.foreach(func => {
+        println(f"hash func: $func")
         signatures += func.zip(column).filter(_._2 == 1).map(_._1).min
         println(f"filtered values ${func.zip(column).filter(_._2 == 1).map(_._1).min}")
       })
+      signaturesForHashes += signatures.toList
     })
-    signatures
-
+    signaturesForHashes
   }
 
   def generateCharacteristicMatrix(shinglesSets: List[Set[String]]) = {
@@ -52,19 +65,19 @@ object Ex3 {
       (initial, next) => initial.union(next)
     }.toList
     val shinglesList = shinglesSets.map(_.toList)
-//    val characteristicMatrix = Array.ofDim[Int](universalSet.size, shinglesSets.size)
-//    for (i <- universalSet.indices) {
-//      for (j <- shinglesList.indices) {
-////        val shingleColumn = ListBuffer[Int]
-//        if (shinglesList(j).contains(universalSet(i))) {
-//          characteristicMatrix(i)(j) = 1
-////          shingleColumn +=
-//        } else {
-//          characteristicMatrix(i)(j) = 0
-//        }
-//      }
-//    }
-//    characteristicMatrix
+    //    val characteristicMatrix = Array.ofDim[Int](universalSet.size, shinglesSets.size)
+    //    for (i <- universalSet.indices) {
+    //      for (j <- shinglesList.indices) {
+    ////        val shingleColumn = ListBuffer[Int]
+    //        if (shinglesList(j).contains(universalSet(i))) {
+    //          characteristicMatrix(i)(j) = 1
+    ////          shingleColumn +=
+    //        } else {
+    //          characteristicMatrix(i)(j) = 0
+    //        }
+    //      }
+    //    }
+    //    characteristicMatrix
 
     val characteristicMatrixColumnList = ListBuffer[List[Int]]()
 
@@ -125,7 +138,6 @@ object Ex3 {
     val stopWordsList = try source.getLines.toList finally source.close
     wordsList.filter(!stopWordsList.contains(_)).toList
   }
-
 
 
 }
