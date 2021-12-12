@@ -5,10 +5,13 @@ object Ex2 {
 
   def main(args: Array[String]): Unit = {
     println("Task 2")
-    println(generateKShingles(loadBook("sample5.txt"), 3))
-    val bookAShingles = generateKShingles(loadBook("harry_potter_2.txt"), 5)
-    val bookBShingles = generateKShingles(loadBook("harry_potter_3.txt"), 5)
-    println(f"jaccard sim = ${jaccardSim(bookAShingles, bookBShingles)}")
+//    println(generateKShingles(loadBook("sample5.txt"), 3))
+//    val bookAShingles = generateKShingles(loadBook("harry_potter_2.txt"), 5)
+//    val bookBShingles = generateKShingles(loadBook("harry_potter_3.txt"), 5)
+//    println(f"jaccard sim = ${jaccardSim(bookAShingles, bookBShingles)}")
+    println(f"jaccard sim for doc1 and doc3: ${jaccardSim(
+      generateKShingles(loadBook("doc1.txt"), 3),
+      generateKShingles(loadBook("doc3.txt"), 3))}")
   }
 
   def jaccardSim(bookA: Set[String], bookB: Set[String]) = {
@@ -36,7 +39,8 @@ object Ex2 {
         if (cleaned.nonEmpty) wordsList += cleaned.toLowerCase
       }
     }
-    removeStopWords(wordsList).toList
+//    removeStopWords(wordsList).toList
+      wordsList.toList
   }
 
   def removeStopWords(wordsList: ListBuffer[String]) = {
